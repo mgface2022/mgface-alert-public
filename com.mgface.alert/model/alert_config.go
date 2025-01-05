@@ -32,12 +32,46 @@ const (
 	AlertFrequency24H   = "24h" // 24小时
 )
 
+func GetBeforeTime(alertFrequency string, currentTime time.Time) time.Time {
+	var startTime time.Time
+	switch alertFrequency {
+	case AlertFrequency30MIN:
+		startTime = currentTime.Add(-30 * time.Minute)
+	case AlertFrequency1H:
+		startTime = currentTime.Add(-time.Duration(1) * time.Hour)
+	case AlertFrequency2H:
+		startTime = currentTime.Add(-time.Duration(2) * time.Hour)
+	case AlertFrequency4H:
+		startTime = currentTime.Add(-time.Duration(4) * time.Hour)
+	case AlertFrequency8H:
+		startTime = currentTime.Add(-time.Duration(8) * time.Hour)
+	case AlertFrequency12H:
+		startTime = currentTime.Add(-time.Duration(12) * time.Hour)
+	case AlertFrequency24H:
+		startTime = currentTime.Add(-time.Duration(24) * time.Hour)
+	}
+	return startTime
+}
+
 // 告警间隔时间常量
 const (
 	AlertInterval5Min  = "5m"  // 5分钟
 	AlertInterval15Min = "15m" // 15分钟
 	AlertInterval30Min = "30m" // 30分钟
 )
+
+func GetInterval(alertInterval string, lastNotifyTime time.Time) time.Time {
+	var nextAllowedTime time.Time
+	switch alertInterval {
+	case AlertInterval5Min:
+		nextAllowedTime = lastNotifyTime.Add(time.Duration(5) * time.Minute)
+	case AlertInterval15Min:
+		nextAllowedTime = lastNotifyTime.Add(time.Duration(15) * time.Minute)
+	case AlertInterval30Min:
+		nextAllowedTime = lastNotifyTime.Add(time.Duration(30) * time.Minute)
+	}
+	return nextAllowedTime
+}
 
 // NotifyTypes 通知方式数组类型
 type NotifyTypes []string

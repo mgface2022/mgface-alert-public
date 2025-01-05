@@ -62,6 +62,7 @@ type AlertConfig struct {
 	AlertFrequency string      `gorm:"size:20;not null;default:'1h'" json:"alert_frequency"` // 告警频率
 	AlertCount     int         `gorm:"not null;default:1" json:"alert_count"`                // 告警次数
 	AlertInterval  string      `gorm:"size:20;not null;default:'5m'" json:"alert_interval"`  // 告警间隔时间
+	User           User        `gorm:"foreignKey:UserID" json:"-"`                           // 关联的用户信息
 	UserID         uint        `gorm:"not null" json:"user_id"`                              // 用户ID
 	Status         string      `gorm:"size:20;not null;default:'enabled'" json:"status"`     // 状态
 	CreatedAt      time.Time   `gorm:"autoCreateTime" json:"created_at"`                     // 创建时间

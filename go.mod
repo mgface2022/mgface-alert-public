@@ -1,4 +1,4 @@
-module mgface-alert-public
+module github.com/mgface2022/mgface-alert-public
 
 go 1.23.4
 

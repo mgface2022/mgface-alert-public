@@ -1,7 +1,6 @@
 package model
 
 import (
-	"gorm.io/gorm"
 	"time"
 )
 
@@ -37,39 +36,4 @@ type UserVIPStatus struct {
 
 func (UserVIPStatus) TableName() string {
 	return "user_vip_status"
-}
-
-// GetUserVIPStatus 获取用户的VIP状态
-func GetUserVIPStatus(db *gorm.DB, userID uint) (*UserVIPStatus, error) {
-	type Result struct {
-		ID             uint       `gorm:"column:id"`
-		UserID         uint       `gorm:"column:user_id"`
-		IsVIP          int        `gorm:"column:is_vip"`          // 使用int接收0/1
-		VIPExpireTime  *time.Time `gorm:"column:vip_expire_time"` // 明确指定列名
-		SMSCount       int        `gorm:"column:sms_count"`
-		EmailCount     int        `gorm:"column:email_count"`
-		PhoneCallCount int        `gorm:"column:phone_call_count"`
-	}
-
-	var result Result
-	err := db.Table("user_vip_status").
-		Select("id, user_id, is_vip, vip_expire_time, sms_count, email_count, phone_call_count").
-		Where("user_id = ?", userID).
-		First(&result).Error
-	if err != nil {
-		return nil, err
-	}
-
-	// 转换为UserVIPStatus结构体
-	status := &UserVIPStatus{
-		ID:             result.ID,
-		UserID:         result.UserID,
-		IsVIP:          result.IsVIP == 1, // 将0/1转换为false/true
-		VIPExpireTime:  result.VIPExpireTime,
-		SMSCount:       result.SMSCount,
-		EmailCount:     result.EmailCount,
-		PhoneCallCount: result.PhoneCallCount,
-	}
-
-	return status, nil
 }

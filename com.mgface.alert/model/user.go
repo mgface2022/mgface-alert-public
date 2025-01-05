@@ -4,9 +4,11 @@ import "time"
 
 // 用户角色常量
 const (
-	UserRoleUser  = "user"  // 用户
-	UserRoleVIP   = "vip"   // VIP
-	UserRoleAdmin = "admin" // 管理员
+	AccountStatus_LOCKED = "locked"
+	AccountStatus_NORMAL = "normal"
+	UserRoleUser         = "user"  // 用户
+	UserRoleVIP          = "vip"   // VIP
+	UserRoleAdmin        = "admin" // 管理员
 )
 
 // User 结构体表示用户信息

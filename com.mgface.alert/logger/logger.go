@@ -29,7 +29,7 @@ func InitLogger(level zapcore.Level) {
 		core := zapcore.NewCore(
 			zapcore.NewConsoleEncoder(encoderConfig),                                // 控制台编码器
 			zapcore.Lock(zapcore.AddSync(zapcore.AddSync(zapcore.Lock(os.Stdout)))), // 输出到标准输出
-			level,                                                                   // 日志级别
+			level, // 日志级别
 		)
 
 		// 创建全局 logger

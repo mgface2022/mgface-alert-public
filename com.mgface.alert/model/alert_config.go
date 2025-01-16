@@ -58,6 +58,7 @@ func (n *NotifyTypes) Scan(value interface{}) error {
 // AlertConfig 告警配置结构体
 type AlertConfig struct {
 	ID             uint        `gorm:"primaryKey" json:"id"`                                 // 配置ID
+	ConfigName     string      `gorm:"size:20;not null" json:"config_name"`                  // 配置名称
 	CoinCode       string      `gorm:"size:20;not null" json:"coin_code"`                    // 币种代码
 	PriceCondition string      `gorm:"size:20;not null" json:"price_condition"`              // 价格条件
 	TargetPrice    float64     `gorm:"type:decimal(20,8);not null" json:"target_price"`      // 目标价格

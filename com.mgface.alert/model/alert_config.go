@@ -4,8 +4,9 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"errors"
-	. "github.com/mgface2022/mgface-alert-public/com.mgface.alert/cst"
 	"time"
+
+	. "github.com/mgface2022/mgface-alert-public/com.mgface.alert/cst"
 )
 
 func GetBeforeTime(alertFrequency string, currentTime time.Time) time.Time {
@@ -38,6 +39,18 @@ func GetInterval(alertInterval string, lastNotifyTime time.Time) time.Time {
 		nextAllowedTime = lastNotifyTime.Add(time.Duration(15) * time.Minute)
 	case AlertInterval30Min:
 		nextAllowedTime = lastNotifyTime.Add(time.Duration(30) * time.Minute)
+	case AlertFrequency1H:
+		nextAllowedTime = lastNotifyTime.Add(time.Duration(1) * time.Hour)
+	case AlertFrequency2H:
+		nextAllowedTime = lastNotifyTime.Add(time.Duration(2) * time.Hour)
+	case AlertFrequency4H:
+		nextAllowedTime = lastNotifyTime.Add(time.Duration(4) * time.Hour)
+	case AlertFrequency8H:
+		nextAllowedTime = lastNotifyTime.Add(time.Duration(8) * time.Hour)
+	case AlertFrequency12H:
+		nextAllowedTime = lastNotifyTime.Add(time.Duration(12) * time.Hour)
+	case AlertFrequency24H:
+		nextAllowedTime = lastNotifyTime.Add(time.Duration(24) * time.Hour)
 	}
 	return nextAllowedTime
 }
